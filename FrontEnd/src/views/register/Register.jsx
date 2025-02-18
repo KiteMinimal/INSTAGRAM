@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './register.css'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { io } from 'socket.io-client'
 
 const Register = () => {
 
@@ -13,6 +14,38 @@ const Register = () => {
     const [ error, setError ] = useState("")
 
     const Navigate = useNavigate()
+    const socket = io('http://localhost:3000')
+
+
+    function socketIO(){
+        socket.emit('joinRoom', 'general')
+        socket.on('message', (msg) => console.log(msg))
+        socket.on('newUser', (user) => console.log(`New user joined: ${user}`))
+        socket.on('userLeft', (user) => console.log(`User left: ${user}`))
+        socket.on('error', (err) => console.log(err))
+        socket.on('connect', () => {
+            console.log('Connected to socket server')
+        })
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from socket server')
+        })
+
+        return () => socket.disconnect()
+    }
+
+    // useEffect(() => {
+    //     socket.on('error', (err) => console.log(err))
+    //     socket.on('connect', () => {
+    //         console.log('Connected to socket server')
+    //     })
+
+    //     socket.on('disconnect', () => {
+    //         console.log('Disconnected from socket server')
+    //     })
+
+    //     return () => socket.disconnect()
+    // }, [socket])
 
 
     function handleSubmit(e) {
@@ -39,7 +72,7 @@ const Register = () => {
     return (
         <main>
             <section className='register-view'>
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={(e) => {handleSubmit(e); socketIO();} }>
                     <div className="input-group">
                         <label htmlFor="username">Username</label>
                         <input onChange={e => setUsername(e.target.value)} value={username} id='username' type="text" placeholder='Enter username' />
@@ -52,7 +85,7 @@ const Register = () => {
                         <label htmlFor="password">Password</label>
                         <input value={password} onChange={e => setPassword(e.target.value)} id='password' type="password" placeholder='Enter password' />
                     </div>
-                    <button type='submit'>Register</button>
+                    <button  type='submit'>Register</button>
                 </form>
 
                 {error && <div className="error">{error}</div>}
