@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
   const [user, setUser] = useState({})
 
+  const navigate = useNavigate();
+
   function getProfileData() {
-    axios.get('http://localhost:3000/users/profile', {
+    const token = localStorage.getItem('token')
+
+    axios.get('http://localhost:3000/users/profile',{
         headers: {
-            Authorization: "Bearer " + localStorage.getItem('token')
+            Authorization: `Bearer ${token}`
         }
     }).then(res => {
         setUser(res.data)
+        console.log(res)
     }).catch(err => {
-        console.log(err.response.data)
+        console.log(err.response?.data)
     })
   }
 
-  useEffect(() => getProfileData(), []);
+  useEffect(() => {
+    if(!localStorage.getItem('token')){
+      navigate('/register')
+    }else {
+      getProfileData()
+    }
+  }, [navigate]);
+
+  if(!user){
+    return <p>Loading profile....</p>
+  }
 
   return (
     <main>
@@ -41,7 +57,7 @@ const Profile = () => {
               return (
                 <div className="post" key={post._id}>
                   <img
-                    src={post.image}
+                    src={post.media}
                     alt=""
                   />
                   <div className="caption">

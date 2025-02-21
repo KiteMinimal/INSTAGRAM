@@ -39,7 +39,6 @@ body {
 }
 .profile-view .bottom .posts .post {
   width: 15rem;
-  background-color: red;
   aspect-ratio: 4/5;
 }
 .profile-view .bottom .posts .post img {
