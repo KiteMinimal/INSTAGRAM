@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Register from '../views/register/Register'
-import Profile from '../views/profile/Profile'
-import Login from '../views/login/Login'
-import Home from '../views/home/Home'
-// import UserSocket from '../views/Socket/UserSocket'
-import CreatePost from '../views/createPost/CreatePost'
+import Register from '../pages/register/Register'
+import Profile from '../pages/profile/Profile'
+import Login from '../pages/login/Login'
+import Home from '../pages/home/Home'
+// import UserSocket from '../pages/Socket/UserSocket'
+import CreatePost from '../pages/createPost/CreatePost'
 import Protected from '../components/Protected'
 
 const AppRoutes = () => {
