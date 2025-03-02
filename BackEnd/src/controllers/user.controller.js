@@ -5,7 +5,7 @@ const config = require('../config/config')
 
 module.exports.registerUserController = async (req, res) => {
     try {
-        const { username, email, password } = req.body
+        const { username, email, password ,profileImage } = req.body
 
         if (!username) {
             return res.status(400).json({ message: "username is required" })
@@ -37,7 +37,8 @@ module.exports.registerUserController = async (req, res) => {
         const user = await userModel.create({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            profileImage
         })
 
         const token = user.generateToken()

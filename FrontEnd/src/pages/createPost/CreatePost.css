@@ -1,0 +1,52 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+}
+
+.create-post {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.create-post form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 24rem;
+}
+.create-post form .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+.create-post form .input-group input {
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 0.25rem;
+  font-size: 1em;
+}
+.create-post form button {
+  padding: 0.5rem;
+  font-size: 1em;
+  cursor: pointer;
+}
+.create-post .error {
+  color: red;
+}/*# sourceMappingURL=CreatePost.css.map */
